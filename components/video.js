@@ -27,11 +27,15 @@ const Video = () => {
           )}
           {playVideo && (
             <iframe
-              src="https://www.youtube.com/watch?v=T6Zc0_BbXxk&t=1s"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+            width="855"
+            height="481"
+            src="https://www.youtube.com/embed/Dqv6xg1x2ZM"
+            title="te amo de mais, Marilia Mendonça"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+          
           )}
         </div>
       </div>
