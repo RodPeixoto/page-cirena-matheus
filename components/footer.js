@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div>
               {""}
-              <Link href="/" className="flex items-center space-x-2 text-2xl font-medium text-orange-800 dark:text-gray-100">
+              <Link href="" className="flex items-center space-x-2 text-2xl font-medium text-orange-800 dark:text-gray-100">
                     <Image
                       src="/img/logocm.png"
                       alt=""
@@ -78,7 +78,7 @@ export default function Footer() {
         <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
           Copyright © {new Date().getFullYear()}. love Music ♥ by{" "}
           <a
-            href=""
+            href="https://www.volvera.com.br/"
             target="_blank"
             rel="noopener">
             Volvera.

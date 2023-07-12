@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Disclosure, Transition } from "@headlessui/react";
+import emailjs from "emailjs-com";
+
 
 const PopupWidget = () => {
   const {
@@ -17,31 +19,32 @@ const PopupWidget = () => {
 
   const userName = useWatch({ control, name: "name", defaultValue: "Someone" });
 
-  const onSubmit = async (data, e) => {
-    console.log(data);
-    await fetch('/enviar-formulario', { // Envie os dados do formulário para o endpoint do lado do servidor
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(data, null, 2),
-    })
-      .then(async (response) => {
-        let json = await response.json();
-        if (json.success) {
-          setIsSuccess(true);
-          setMessage(json.message);
-          e.target.reset();
-          reset();
-        } else {
-          setIsSuccess(false);
-          setMessage(json.message);
-        }
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+  
+    // Use o ID do serviço de e-mail e o ID do modelo de e-mail fornecidos pelo EmailJS
+    const serviceID = "service_xzgqe1h";
+    const templateID = "template_bnzddta";
+    const userID = "spN4ZHFMvZcEnddEF";
+  
+    // Prepare os dados para o envio do e-mail
+    const templateParams = {
+      name: data.name,
+      email: data.email,
+      message: data.message
+    };
+  
+    // Envie o e-mail usando o EmailJS
+    emailjs.send(serviceID, templateID, templateParams, userID)
+      .then((response) => {
+        setIsSuccess(true);
+        setMessage("E-mail enviado com sucesso!");
+        e.target.reset();
+        reset();
       })
       .catch((error) => {
         setIsSuccess(false);
-        setMessage('Erro do cliente. Verifique o console.log para obter mais informações');
+        setMessage("Erro ao enviar o e-mail. Por favor, tente novamente mais tarde.");
         console.log(error);
       });
   };
@@ -52,7 +55,7 @@ const PopupWidget = () => {
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="fixed z-40 flex items-center justify-center transition duration-300 bg-red-700 rounded-full shadow-lg right-5 bottom-5 w-14 h-14 focus:outline-none hover:bg-red-800 focus:bg-red-900 ease">
+            <Disclosure.Button className="fixed z-40 flex items-center justify-center transition duration-300 bg-red-800 rounded-full shadow-lg right-5 bottom-5 w-14 h-14 focus:outline-none hover:bg-red-500 focus:bg-red-600 ease">
               <span className="sr-only">Open Contact form Widget</span>
               <Transition
                 show={!open}
@@ -107,9 +110,9 @@ const PopupWidget = () => {
               leaveTo="opacity-0 translate-y-5">
               <Disclosure.Panel className=" flex flex-col  overflow-hidden left-0 h-full w-full sm:w-[350px] min-h-[250px] sm:h-[600px] border border-gray-300 dark:border-gray-800 bg-white shadow-2xl rounded-md sm:max-h-[calc(100vh-120px)]">
                 <div className="flex flex-col items-center justify-center h-32 p-5 bg-red-800">
-                  <h3 className="text-lg text-white">Quer deixar uma Mensagem?</h3>
+                  <h3 className="text-lg text-white">Como podemos ajudar?</h3>
                   <p className="text-white opacity-50">
-                    
+                  Costumamos responder em algumas horas
                   </p>
                 </div>
                 <div className="flex-grow h-full p-6 overflow-auto bg-gray-50 ">
@@ -145,7 +148,7 @@ const PopupWidget = () => {
                         <input
                           type="text"
                           id="full_name"
-                          placeholder="Luan Santana"
+                          placeholder="Cilena Lopes"
                           {...register("name", {
                             required: "Full name is required",
                             maxLength: 80,
@@ -153,7 +156,7 @@ const PopupWidget = () => {
                           className={`w-full px-3 py-2 text-gray-600 placeholder-gray-300 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring   ${
                             errors.name
                               ? "border-red-600 focus:border-red-600 ring-red-100"
-                              : "border-gray-300 focus:border-orange-300 ring-orange-300"
+                              : "border-gray-300 focus:border-indigo-600 ring-indigo-100"
                           }`}
                         />
                         {errors.name && (
@@ -167,23 +170,23 @@ const PopupWidget = () => {
                         <label
                           htmlFor="email"
                           className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
-                          E-mail
+                           E-mail 
                         </label>
                         <input
                           type="email"
                           id="email"
                           {...register("email", {
-                            required: "Enter your email",
+                            required: "Digite seu e-mail",
                             pattern: {
                               value: /^\S+@\S+$/i,
-                              message: "Please enter a valid email",
+                              message: "Use um e-mail válido",
                             },
                           })}
-                          placeholder="exemplo@exemplo.com"
+                          placeholder="exemplo@email.com"
                           className={`w-full px-3 py-2 text-gray-600 placeholder-gray-300 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring   ${
                             errors.email
-                              ? "border-red-600 focus:border-red-400 ring-red-100"
-                              : "border-gray-300 focus:border-red-300 ring-orange-300"
+                              ? "border-red-600 focus:border-red-600 ring-red-100"
+                              : "border-gray-300 focus:border-indigo-600 ring-indigo-100"
                           }`}
                         />
 
@@ -196,22 +199,22 @@ const PopupWidget = () => {
 
                       <div className="mb-4">
                         <label
-                          htmlFor="message"
+                          htmlFor="mensagem"
                           className="block mb-2 text-sm text-gray-600 dark:text-gray-400">
-                          Sua Mensagem
+                          Deixe sua mensagem aqui!
                         </label>
 
                         <textarea
                           rows="4"
                           id="message"
                           {...register("message", {
-                            required: "Enter your Message",
+                            required: "Digite sua Mensagem",
                           })}
-                          placeholder="Digite aqui sua mensagem"
+                          placeholder="Sua Mensagem"
                           className={`w-full px-3 py-2 text-gray-600 placeholder-gray-300 bg-white border border-gray-300 rounded-md h-28 focus:outline-none focus:ring   ${
                             errors.message
                               ? "border-red-600 focus:border-red-600 ring-red-100"
-                              : "border-gray-300 focus:border-indigo-600 ring-orange-300"
+                              : "border-gray-300 focus:border-indigo-600 ring-indigo-100"
                           }`}
                           required></textarea>
                         {errors.message && (
@@ -223,7 +226,7 @@ const PopupWidget = () => {
                       <div className="mb-3">
                         <button
                           type="submit"
-                          className="w-full px-3 py-4 text-white bg-red-800 rounded-md focus:bg-red-400 focus:outline-none">
+                          className="w-full px-3 py-4 text-white bg-red-800 rounded-md focus:bg-red-500 focus:outline-none">
                           {isSubmitting ? (
                             <svg
                               className="w-5 h-5 mx-auto text-white animate-spin"
@@ -243,7 +246,7 @@ const PopupWidget = () => {
                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                           ) : (
-                            "Enviar "
+                            "Enviar Mensagem"
                           )}
                         </button>
                       </div>
@@ -251,13 +254,13 @@ const PopupWidget = () => {
                         className="text-xs text-center text-gray-400"
                         id="result">
                         <span>
-                          Equipe{" "}
+                          {" "}
                           <a
                             href=""
                             className="text-gray-600"
                             target="_blank"
                             rel="noopener noreferrer">
-                            Volvera
+                            
                           </a>
                         </span>
                       </p>
@@ -281,11 +284,11 @@ const PopupWidget = () => {
                           />
                         </svg>
                         <h3 className="py-5 text-xl text-green-500">
-                          Mensagem envida com sucesso!
+                          Mensagem Enviada com Sucesso
                         </h3>
                         <p className="text-gray-700 md:px-3">{Message}</p>
                         <button
-                          className="mt-6 text-orange-700 focus:outline-none"
+                          className="mt-6 text-indigo-600 focus:outline-none"
                           onClick={() => reset()}>
                           Voltar
                         </button>
@@ -310,7 +313,7 @@ const PopupWidget = () => {
                       </svg>
 
                       <h3 className="text-xl text-red-400 py-7">
-                        Oops, Algo de errado!
+                       Ops, algo deu errado!
                       </h3>
                       <p className="text-gray-700 md:px-3">{Message}</p>
                       <button

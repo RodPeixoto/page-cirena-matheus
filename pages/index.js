@@ -19,7 +19,7 @@ const Home = () => {
         <title>Cirena & Matheus</title>
         <meta
           name="description"
-          content="Site de dupla musical, tocam e cantam mpb, sertanejo, pop e rock para festas e eventos."
+          content="Musicos  "
         />
         <link rel="icon" href="/public/img/logocm.ico" />
       </Head>
@@ -34,8 +34,8 @@ const Home = () => {
       <SectionTitle
         pretitle="De um Play"
         title="NOSSO AO VIVO!">
-        Navegue pela nossa página para nos conhecer melhor, 
-        ouça um trecho das nossas músicas e acompanhe as nossas próximas apresentações.
+        Se você quer animar o seu evento com músicas populares, está no lugar certo. 
+        Nós, Cirena e Matheus, cuidamos da trilha sonora ideal para criar a atmosfera desejada.
       </SectionTitle>
       <Video />
       
