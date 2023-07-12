@@ -49,9 +49,9 @@ const Hero = () => {
             Nos apoie!
           </div>
 </div>
-<div className="container p-5 mx-auto xl:px-0 flex w-full flex-col mt- items-center justify-center text-center">
+<div className="container p-8 mx-auto xl:px-0 flex w-full flex-col mt- items-center justify-center text-center">
       <div className="pt-14 text-gray-400 dark:text-gray-400">
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-12">
           <div className="w-40 h-48">
             <Image src="/img/volvera.png" alt="Imagem 1" layout="responsive" width={90} height={40} />
           </div>
