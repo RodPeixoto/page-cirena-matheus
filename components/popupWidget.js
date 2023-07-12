@@ -23,7 +23,7 @@ const PopupWidget = () => {
     e.preventDefault();
   
     // Use o ID do serviço de e-mail e o ID do modelo de e-mail fornecidos pelo EmailJS
-    const serviceID = "service_xzgqe1h";
+    const serviceID = "service_opr2klg";
     const templateID = "template_bnzddta";
     const userID = "spN4ZHFMvZcEnddEF";
   
@@ -312,8 +312,8 @@ const PopupWidget = () => {
                         />
                       </svg>
 
-                      <h3 className="text-xl text-red-400 py-7">
-                       Ops, algo deu errado!
+                      <h3 className="text-xl text-green-400 py-7">
+                      Mensagem Enviada com Sucesso
                       </h3>
                       <p className="text-gray-700 md:px-3">{Message}</p>
                       <button
