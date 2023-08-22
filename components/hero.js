@@ -58,7 +58,9 @@ const Hero = () => {
           <div className="w-40 h-48">
             <Image src="/img/lt advocacia.png" alt="Imagem 2" layout="responsive" width={100} height={200} />
           </div>
-        
+          <div className="w-40 h-48">
+            <Image src="/img/novatvvale.png" alt="Imagem 3" layout="responsive" width={100} height={200} />
+          </div>
         </div>
       </div>
     </div>

@@ -26,6 +26,8 @@ const Home = () => {
       </Head>
 
       <Navbar />
+     
+      
       <Hero />
       <SectionTitle
         pretitle=""
